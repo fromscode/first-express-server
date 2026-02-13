@@ -9,6 +9,13 @@ app.use("/authors", authorRouter);
 app.use("/books", bookRouter);
 app.use("/", indexRouter);
 
+// global error handler (has 4 parameters which allows express to treat this differently than other middleware functions)
+// catches all thrown errors or calls to next(error)
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.status(500).send(err);
+});
+
 const PORT = 3000;
 app.listen(PORT, (error) => {
     // This is important!
